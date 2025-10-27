@@ -62,7 +62,6 @@ export default class GameField {
   }
 
   spawnRandomGnome() {
-    if (!this.isPlaying) return;
     let nextPosition;
     do {
       nextPosition = this.randomCell(); // Генерация новой случайной позиции
@@ -71,13 +70,9 @@ export default class GameField {
     this.currentPosition = nextPosition; // Устанавливаем новую позицию
     this.gnome.renderTo(this.cells[nextPosition]); // Отображение гнома в новой позиции
 
-   setTimeout(() => {
+  setTimeout(() => {
       this.hideCurrentGnome();
-      
-      // Проверяем статус игры ДО запуска процедуры пропуска
-      if (this.isPlaying) {
-        this.missHit(); // Только если игра активна, считаем промах
-      }
+      this.missHit();
     }, this.intervalTime);
   }
 
