@@ -5,7 +5,7 @@ import GameField from "./js/GameField.js";
 
 let gameInstance;
 
-function startNewGame() {
+export function startNewGame() {
   if (gameInstance) {
     gameInstance.stopGame(); 
   }
