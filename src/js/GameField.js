@@ -83,6 +83,11 @@ spawnRandomGnome() {
     }
   }
 
+  gameOver() {
+    this.stopGame();
+    this.showNotification();
+  }
+  
   stopGame() {
     clearInterval(this.timer); // Очищаем таймер
     this.isPlaying = false; // Завершаем игру
