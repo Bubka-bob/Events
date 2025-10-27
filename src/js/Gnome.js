@@ -10,6 +10,6 @@ export default class Gnome {
   }
 
   removeFrom(parentNode) {
-    parentNode.removeChild(this.image);
+    parentNode.remove(this.image);
   }
 }
