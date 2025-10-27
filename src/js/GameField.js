@@ -71,9 +71,13 @@ export default class GameField {
     this.currentPosition = nextPosition; // Устанавливаем новую позицию
     this.gnome.renderTo(this.cells[nextPosition]); // Отображение гнома в новой позиции
 
-    setTimeout(() => {
-      this.hideCurrentGnome(); // Прятать гнома спустя интервал
-      this.missHit(); // Регистрация пропуска хода
+   setTimeout(() => {
+      this.hideCurrentGnome();
+      
+      // Проверяем статус игры ДО запуска процедуры пропуска
+      if (this.isPlaying) {
+        this.missHit(); // Только если игра активна, считаем промах
+      }
     }, this.intervalTime);
   }
 
