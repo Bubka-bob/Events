@@ -15,7 +15,7 @@ export default class GameField {
     this.score = 0; // Текущий счёт
     this.missedHits = 0; // Пропущенных ударов
     this.isPlaying = false; // Флаг игры
-    this.gnome = new Gnome("./img/gnome.png"); // Гном
+    this.gnome = new Gnome; // Гном
     this.currentPosition = null; // Текущая позиция гнома
     this.setupEvents(); // Установка событий
   }
@@ -60,15 +60,18 @@ export default class GameField {
     }
   }
 
-  spawnRandomGnome() {
-    this.currentPosition = this.randomCell(); // Получаем случайную позицию
-    this.gnome.renderTo(this.cells[this.currentPosition]); // Показываем гнома
+spawnRandomGnome() {
+    do {
+      this.currentPosition = this.randomCell(); // Генерируем случайную позицию
+    } while (this.previousPosition === this.currentPosition); // Пока не найдём новое положение
+
+    this.previousPosition = this.currentPosition; // Сохраняем предыдущее положение
+    this.gnome.renderTo(this.cells[this.currentPosition]); // Появляемся в новом положении
     setTimeout(() => {
-      this.hideCurrentGnome(); // Через секунду скрываем гнома
-      this.spawnRandomGnome(); // Появляется новый гном
+      this.hideCurrentGnome(); // Через секунду прячемся
+      this.spawnRandomGnome(); // Появляемся повторно
     }, 1000); // Задержка в миллисекундах
   }
-
   missHit() {
     this.missedHits++;
     this.updateMissesDisplay(); // Обновляем интерфейс с числом пропусков
