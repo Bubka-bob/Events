@@ -2,57 +2,56 @@ import Gnome from "./Gnome.js";
 import Image from "../img/gnome.png";
 import { startNewGame } from "../index.js";
 
-export default class GameField {
+export default class class GameField {
   constructor(rows, cols, intervalTime) {
-    this.rows = rows; // Количество строк
-    this.cols = cols; // Количество столбцов
-    this.cellCount = rows * cols; // Общее количество клеток
-    this.intervalTime = intervalTime || 1000; // Интервал появления гнома
-    this.container = document.getElementById('game-field'); // Контейнер игрового поля
-    this.cells = []; // Массив всех игровых клеток
-    this.scoreEl = document.getElementById('score'); // Элемент счёта игрока
-    this.missesEl = document.getElementById('misses'); // Элемент числа пропусков
+    this.rows = rows;
+    this.cols = cols;
+    this.cellCount = rows * cols;
+    this.intervalTime = intervalTime || 1000;
+    this.container = document.getElementById('game-field');
+    this.cells = [];
+    this.scoreEl = document.getElementById('score');
+    this.missesEl = document.getElementById('misses');
     this.notificationEl = document.getElementById('notification');
-    this.score = 0; // Текущий счёт
-    this.missedHits = 0; // Пропущенных ударов
-    this.isPlaying = false; // Флаг игры
-    this.gnome = new Gnome(Image); // Гном
-    this.currentPosition = null; // Текущая позиция гнома
-    this.setupEvents(); // Установка событий
+    this.score = 0;
+    this.missedHits = 0;
+    this.isPlaying = false;
+    this.gnome = new Gnome(Image);
+    this.currentPosition = null;
+    this.setupEvents();
   }
 
   setupEvents() {
-    this.createCells(); // Создаем клетки перед добавлением событий
+    this.createCells();
 
-    // Добавляем обработчики кликов к каждой клетке
     this.cells.forEach((cell, idx) => {
       cell.addEventListener('click', () => {
         if (this.isPlaying && idx === this.currentPosition) {
-          this.hitSuccess(); // Увеличение счета при удачном попадании
+          this.hitSuccess();
         }
       });
     });
   }
 
   hitSuccess() {
-    this.score++; // Увеличиваем счёт
-    this.updateScoreDisplay(); // Обновляем интерфейс
-    this.resetMissedHits(); // Сбрасываем пропущенные удары
-    this.hideCurrentGnome(); // Прячем текущего гнома
-    this.spawnRandomGnome(); // Показываем нового гнома
+    this.score++;
+    this.updateScoreDisplay();
+    this.resetMissedHits();
+    this.hideCurrentGnome();
+    this.spawnRandomGnome();
   }
 
   updateScoreDisplay() {
-    this.scoreEl.textContent = this.score.toString(); // Обновляем отображаемый счёт
+    this.scoreEl.textContent = this.score.toString();
   }
 
   updateMissesDisplay() {
-    this.missesEl.textContent = this.missedHits.toString(); // Обновляем отображаемое количество пропусков
+    this.missesEl.textContent = this.missedHits.toString();
   }
 
   resetMissedHits() {
-    this.missedHits = 0; // Сбрасываем количество пропусков
-    this.updateMissesDisplay(); // Обновляем интерфейс
+    this.missedHits = 0;
+    this.updateMissesDisplay();
   }
 
   hideCurrentGnome() {
@@ -64,35 +63,31 @@ export default class GameField {
   spawnRandomGnome() {
     let nextPosition;
     do {
-      nextPosition = this.randomCell(); // Генерация новой случайной позиции
-    } while (nextPosition === this.currentPosition); // Исключаем повторную позицию
+      nextPosition = this.randomCell();
+    } while (nextPosition === this.currentPosition);
 
-    this.currentPosition = nextPosition; // Устанавливаем новую позицию
-    this.gnome.renderTo(this.cells[nextPosition]); // Отображение гнома в новой позиции
+    this.currentPosition = nextPosition;
+    this.gnome.renderTo(this.cells[nextPosition]);
 
-  setTimeout(() => {
+    setTimeout(() => {
       this.hideCurrentGnome();
-      this.missHit();
+      this.missHit(); // Здесь вызываем пропуск удара, если никто не успел попасть
     }, this.intervalTime);
   }
 
   missHit() {
-    this.missedHits++; // Инкрементируем количество пропусков
-    this.updateMissesDisplay(); // Обновляем интерфейс
+    this.missedHits++;
+    this.updateMissesDisplay();
 
     if (this.missedHits >= 5) {
-      this.stopGame(); // Останавливаем игру при достижении 5 пропусков
+      this.stopGame();
     }
   }
 
-  gameOver() {
-    this.stopGame(); // Остановка игры
-    this.showNotification(); // Показ результата
-  }
-
   stopGame() {
-    clearInterval(this.timer); // Очистка интервала
-    this.isPlaying = false; // Смена статуса игры
+    clearInterval(this.timer);
+    this.isPlaying = false;
+    this.showNotification();
   }
 
   showNotification() {
@@ -105,9 +100,8 @@ export default class GameField {
   }
 
   startGame() {
-    this.isPlaying = true; // Запуск игры
-    this.spawnRandomGnome(); // Первый показ гнома
-    this.timer = setInterval(() => {}, this.intervalTime); // Таймер для удобства, хотя здесь он фактически пустой
+    this.isPlaying = true;
+    this.spawnRandomGnome();
   }
 
   createCells() {
@@ -120,7 +114,6 @@ export default class GameField {
   }
 
   randomCell() {
-    return Math.floor(Math.random() * this.cellCount); // Получаем случайную позицию гнома
+    return Math.floor(Math.random() * this.cellCount);
   }
 }
-
