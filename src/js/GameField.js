@@ -7,7 +7,7 @@ export default class GameField {
     this.rows = rows;
     this.cols = cols;
     this.cellCount = rows * cols;
-    this.intervalTime = intervalTime || 1000;
+    this.intervalTime = intervalTime || 1000; // Интервал времени для задерживания гнома (1 секунда)
     this.container = document.getElementById('game-field');
     this.cells = [];
     this.scoreEl = document.getElementById('score');
@@ -61,17 +61,20 @@ export default class GameField {
   }
 
   spawnRandomGnome() {
+    // Генерируем новую случайную позицию
     let nextPosition;
     do {
       nextPosition = this.randomCell();
     } while (nextPosition === this.currentPosition);
 
+    // Перемещаем гнома в новую позицию
     this.currentPosition = nextPosition;
     this.gnome.renderTo(this.cells[nextPosition]);
 
+    // Через указанное время (1 секунда) гном исчезает и фиксируется пропуск удара
     setTimeout(() => {
       this.hideCurrentGnome();
-      this.missHit(); // Здесь вызываем пропуск удара, если никто не успел попасть
+      this.missHit();
     }, this.intervalTime);
   }
 
@@ -85,7 +88,6 @@ export default class GameField {
   }
 
   stopGame() {
-    clearInterval(this.timer);
     this.isPlaying = false;
     this.showNotification();
   }
