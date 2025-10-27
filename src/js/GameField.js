@@ -18,7 +18,8 @@ export default class GameField {
 			this.isPlaying = false; // Флаг игры    
 			this.gnome = new Gnome(Image); // Гном    
 			this.currentPosition = null; // Текущая позиция гнома    
-			this.setupEvents(); // Установка событий  }
+			this.setupEvents(); // Установка событий  
+  }
 
 			setupEvents() {
 				this.createCells(); // Сначала создаем клетки
