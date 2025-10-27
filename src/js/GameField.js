@@ -73,7 +73,8 @@ export default class GameField {
 				setTimeout(() => {
 					this.hideCurrentGnome(); // Через секунду прячемся      
 					this.spawnRandomGnome(); // Появляемся повторно    
-				}, 1000); // Задержка в миллисекундах  }
+				}, 1000); // Задержка в миллисекундах  
+      }
 
 				missHit() {
 					this.missedHits++;
