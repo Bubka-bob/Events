@@ -12,6 +12,7 @@ export default class GameField {
     this.cells = []; // Массив всех игровых клеток
     this.scoreEl = document.getElementById('score'); // Элемент счёта игрока
     this.missesEl = document.getElementById('misses'); // Элемент числа пропусков
+    this.notificationEl = document.getElementById('notification');
     this.score = 0; // Текущий счёт
     this.missedHits = 0; // Пропущенных ударов
     this.isPlaying = false; // Флаг игры
