@@ -76,6 +76,32 @@ export default class GameField {
     }
   }
 
+  gameOver() {
+    let resultMessage = document.createElement('div');
+    resultMessage.id = 'result-message';
+    resultMessage.innerText = `
+      🎉 Игра окончена!\n\n💥 Попали: ${this.score}\n❌ Пропустили: ${this.missedHits}`;
+    resultMessage.style.position = 'absolute';
+    resultMessage.style.top = '50%';
+    resultMessage.style.left = '50%';
+    resultMessage.style.transform = 'translate(-50%, -50%)';
+    resultMessage.style.backgroundColor = '#ffffff';
+    resultMessage.style.padding = '20px';
+    resultMessage.style.borderRadius = '10px';
+    resultMessage.style.boxShadow = '0 0 10px rgba(0,0,0,0.3)';
+    resultMessage.style.fontSize = '1.5rem';
+    resultMessage.style.color = '#333';
+    resultMessage.style.zIndex = '1000';
+    resultMessage.style.textAlign = 'center';
+
+    document.body.append(resultMessage);
+
+    // Удаляем результат через некоторое время
+    setTimeout(() => {
+      document.body.removeChild(resultMessage);
+      startNewGame(); // Начинаем новую игру
+    }, 3000); // Сообщение исчезает через 3 секунды
+  }
   stopGame() {
     clearInterval(this.timer); // Очищаем таймер
     this.isPlaying = false; // Завершаем игру
