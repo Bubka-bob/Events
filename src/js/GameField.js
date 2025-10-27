@@ -15,7 +15,7 @@ export default class GameField {
     this.score = 0; // Текущий счёт
     this.missedHits = 0; // Пропущенных ударов
     this.isPlaying = false; // Флаг игры
-    this.gnome = new Gnome; // Гном
+    this.gnome = new Gnome(Image); // Гном
     this.currentPosition = null; // Текущая позиция гнома
     this.setupEvents(); // Установка событий
   }
