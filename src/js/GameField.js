@@ -2,7 +2,7 @@ import Gnome from "./Gnome.js";
 import Image from "../img/gnome.png";
 import { startNewGame } from "../index.js";
 
-export default class class GameField {
+export default class GameField {
   constructor(rows, cols, intervalTime) {
     this.rows = rows;
     this.cols = cols;
