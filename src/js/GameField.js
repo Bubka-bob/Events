@@ -62,6 +62,7 @@ export default class GameField {
   }
 
   spawnRandomGnome() {
+    if (!this.isPlaying) return;
     let nextPosition;
     do {
       nextPosition = this.randomCell(); // Генерация новой случайной позиции
