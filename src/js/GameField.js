@@ -47,9 +47,6 @@ export default class GameField {
     this.updateScoreDisplay();
     this.resetMissedHits();
     this.hideCurrentGnome();
-    setTimeout(() => {
-      this.spawnRandomGnome();
-    }, 1000);
   }
 
   updateScoreDisplay() {
