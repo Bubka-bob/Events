@@ -17,7 +17,6 @@ export default class GameField {
     this.isPlaying = false;
     this.gnome = new Gnome(Image);
     this.currentPosition = null;
-    this.previousPosition = null;
     this.setupEvents();
   }
 
@@ -36,8 +35,7 @@ export default class GameField {
     let nextPosition;
     do {
       nextPosition = this.randomCell();
-    } while (nextPosition === this.previousPosition);
-    this.previousPosition = this.currentPosition;
+    } while (nextPosition === this.currentPosition);
     this.currentPosition = nextPosition;
     this.gnome.renderTo(this.cells[this.currentPosition]);
   }
