@@ -1,3 +1,3 @@
-![CI](https://github.com/Bubka-bob/Events/actions/workflows/web.yml/badge.svg)
+![CI](https://github.com/Bubka-bob/events/actions/workflows/web.yml/badge.svg)
 
-https://bubka-bob.github.io/Events/
+https://bubka-bob.github.io/events/
