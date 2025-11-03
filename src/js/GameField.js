@@ -43,8 +43,8 @@ export default class GameField {
   hitSuccess() {
     this.score++;
     this.updateScoreDisplay();
-    this.resetMissedHits();
     this.hideCurrentGnome();
+    this.hitInThisCycle = true;
   }
 
   updateScoreDisplay() {
@@ -84,8 +84,11 @@ export default class GameField {
     this.spawnRandomGnome();
     this.timer = setInterval(() => {
       this.hideCurrentGnome();
+      if (!this.hitInThisCycle) {
+        this.missHit();
+      }
+      this.hitInThisCycle = false;
       this.spawnRandomGnome();
-      this.missHit();
     }, this.intervalTime);
   }
 
